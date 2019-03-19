@@ -2,7 +2,7 @@ const express = require("express");
 const db = require("./data/db.js");
 const router = express.Router();
 
-router.post("/api/posts/", (req, res) => {
+router.post("/", (req, res) => {
   const postsInfo = req.body;
   console.log("posts Info: ", postsInfo);
   db.insert(postsInfo)
@@ -24,7 +24,7 @@ router.post("/api/posts/", (req, res) => {
     });
 });
 
-router.get("/api/posts/", (req, res) => {
+router.get("/", (req, res) => {
   db.find()
     .then(posts => {
       res.status(200).json(posts);
@@ -36,7 +36,7 @@ router.get("/api/posts/", (req, res) => {
     });
 });
 
-router.get("/api/posts/:id", (req, res) => {
+router.get("/:id", (req, res) => {
   const id = req.params.id;
   db.findById(id)
     .then(post => {
@@ -55,7 +55,7 @@ router.get("/api/posts/:id", (req, res) => {
     });
 });
 
-router.delete("/api/posts/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
   const id = req.params.id;
   db.remove(id)
     .then(post => {
@@ -72,7 +72,7 @@ router.delete("/api/posts/:id", (req, res) => {
     });
 });
 
-router.put("/api/posts/:id", (req, res) => {
+router.put("/:id", (req, res) => {
   const id = req.params.id;
   if (!req.body.title || !req.body.contents) {
     res.status(400).json({
